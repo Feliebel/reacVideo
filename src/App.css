@@ -14,11 +14,11 @@
 
 .video-player {
   grid-area: video-player;
-  background: yellow;
+  background: blue;
 }
 
 .video-list {
   grid-area: video-list;
-  background: blue;
+  background: #fffacd;
   padding: 15px;
 }
