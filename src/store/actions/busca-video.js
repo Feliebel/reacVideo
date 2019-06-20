@@ -27,11 +27,11 @@ export const buscaVideoErro = () => {
     }
 }
 
-export const buscaVideo = termo => {
+export const buscaVideo = (termo) => {
     return dispatch => {
         dispatch(buscaVideoInicio())
         youtubeSearch(API_KEY, { q: termo })
-        .then(data => dispatch(buscaVideoSucesso(data.itens)))
+        .then(data => dispatch(buscaVideoSucesso(data.items)))
         .catch(() => dispatch(buscaVideoErro()))
     }
 } 

@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 import busca from './busca'
-import reproduz from './reporduz-video'
+import reproduz from './reproduz-video'
 
 
 const rootReducer = combineReducers({

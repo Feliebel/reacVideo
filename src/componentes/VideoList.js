@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { List, Image } from 'semantic-ui-react'
+import { List, Image, Dimmer, Loader } from 'semantic-ui-react'
+import { reproduzVideo } from '../store/actions/reproduz-video';
 
 class VideoList extends Component {
+    constructor(props) {
+        super(props)
+
+        this.renderVideo = this.renderVideo.bind(this)
+    }
+
     renderVideo(video) {
         return (      
             <List animated verticalAlign='middle'>
-                <List.Item>
+                <List.Item onClick={() => this.props.reproduz(video)}>
                     <Image src={video.snippet.thumbnails.default.url} />
                     <List.Content>
                         <List.Header>{video.snippet.title}</List.Header>
@@ -17,7 +24,12 @@ class VideoList extends Component {
     }
    render() {
        return (
-        <div className='video-list'> 
+        <div className='video-list'>
+            {
+                this.props.carregando && (<Dimmer active inverted>
+                    <Loader size='medium'>Loading</Loader>
+                </Dimmer>)
+            } 
             {
                 this.props.videos.map(video => {
                     console.log("meu video: ", video)
@@ -31,10 +43,17 @@ class VideoList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        videos: state.busca.videos,
         carregando: state.busca.carregando,
-        erro: state.busca.erro
+        erro: state.busca.erro,
+        videos: state.busca.videos,
+        video: state.reproduz.video
     }
 }
 
-export default connect(mapStateToProps, null)(VideoList)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        reproduz: (video) => dispatch(reproduzVideo(video))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoList)
